@@ -6,7 +6,7 @@ namespace KmovieS.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         public string Email { get; set; }
     }
 
@@ -42,14 +42,14 @@ namespace KmovieS.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -58,7 +58,7 @@ namespace KmovieS.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Memorizza account")]
+        [Display(Name = "Memorizza credenziali")]
         public bool RememberMe { get; set; }
     }
 
@@ -66,7 +66,7 @@ namespace KmovieS.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         public string Email { get; set; }
 
         [Required]
@@ -85,7 +85,7 @@ namespace KmovieS.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         public string Email { get; set; }
 
         [Required]
@@ -106,7 +106,7 @@ namespace KmovieS.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Posta elettronica")]
+        [Display(Name = "Indirizzo di posta elettronica")]
         public string Email { get; set; }
     }
 }

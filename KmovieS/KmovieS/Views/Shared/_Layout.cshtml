@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                @Html.ActionLink("KmovieS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("KmovieS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Home page" })
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,8 +21,8 @@
                     @Html.Partial("_LoginPartial")
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link text-dark" })</li>
-                        <li class="nav-item">@Html.ActionLink("Who we are", "About", "Home", null, new { @class = "nav-link text-dark" })</li>
-                        <li class="nav-item">@Html.ActionLink("Contacts", "Contact", "Home", null, new { @class = "nav-link text-dark" })</li>
+                        <li class="nav-item">@Html.ActionLink("Chi siamo", "About", "Home", null, new { @class = "nav-link text-dark" })</li>
+                        <li class="nav-item">@Html.ActionLink("Contatti", "Contact", "Home", null, new { @class = "nav-link text-dark" })</li>
                         <li class="nav-item">@Html.ActionLink("API test", "Index", "Help", null, new { @class = "nav-link text-dark" })</li>
                         <li class="nav-item">@Html.ActionLink("Upload test", "FileUpload", "Home", null, new { @class = "nav-link text-dark" })</li>
                     </ul>
@@ -34,7 +34,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - KmovieS</p>
+            <p><span>KmovieS</span> &copy; Spekno s.r.l. @DateTime.Now.Year</p>
         </footer>
     </div>
 

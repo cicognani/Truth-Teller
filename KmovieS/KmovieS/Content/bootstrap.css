@@ -83,6 +83,11 @@ p {
   margin-bottom: 1rem;
 }
 
+p span {
+	color: #5555ff;
+	font-weight: 600;
+}
+	
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
@@ -220,6 +225,7 @@ th {
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 button {
@@ -4352,10 +4358,12 @@ input[type="button"].btn-block {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
+  color: #5555ff;
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
+  color: #5050dd;
 }
 
 .navbar-nav {
@@ -4421,6 +4429,7 @@ input[type="button"].btn-block {
   .navbar-expand-sm > .container-fluid, .navbar-expand-sm > .container-sm, .navbar-expand-sm > .container-md, .navbar-expand-sm > .container-lg, .navbar-expand-sm > .container-xl {
     padding-right: 0;
     padding-left: 0;
+	white-space: nowrap;
   }
 }
 
@@ -4441,6 +4450,7 @@ input[type="button"].btn-block {
   .navbar-expand-sm .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
+	white-space: nowrap;
   }
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid, .navbar-expand-sm > .container-sm, .navbar-expand-sm > .container-md, .navbar-expand-sm > .container-lg, .navbar-expand-sm > .container-xl {
@@ -4630,10 +4640,12 @@ input[type="button"].btn-block {
 
 .navbar-light .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
+  color: #5555ff;
 }
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
+  color: #5050dd;
 }
 
 .navbar-light .navbar-nav .nav-link {
