@@ -228,3 +228,6 @@ C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.csp
 C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.csproj.CopyComplete
 C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.dll
 C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.pdb
+C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\bin\KmovieS.xml
+C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\bin\Swashbuckle.Core.dll
+C:\Users\Utente\source\repos\APIKEY\APIKEY\KmovieS\KmovieS\bin\WebActivatorEx.dll
