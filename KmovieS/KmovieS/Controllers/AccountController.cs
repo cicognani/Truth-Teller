@@ -202,7 +202,7 @@ namespace KmovieS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Non rivelare che l'utente non esiste o non è confermato
@@ -211,10 +211,10 @@ namespace KmovieS.Controllers
 
                 // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
                 // Inviare un messaggio di posta elettronica con questo collegamento
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reimposta password", "Per reimpostare la password, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                await UserManager.SendEmailAsync(user.Id, "Reimposta password", "Per reimpostare la password, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
@@ -248,7 +248,7 @@ namespace KmovieS.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Non rivelare che l'utente non esiste
@@ -422,6 +422,8 @@ namespace KmovieS.Controllers
 
             base.Dispose(disposing);
         }
+
+   
 
         #region Helper
         // Usato per la protezione XSRF durante l'aggiunta di account di accesso esterni
