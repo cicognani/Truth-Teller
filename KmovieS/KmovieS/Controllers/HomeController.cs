@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace KmovieS.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -24,6 +25,13 @@ namespace KmovieS.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Registration()
+        {
+            ViewBag.Title = "Registration";
 
             return View();
         }

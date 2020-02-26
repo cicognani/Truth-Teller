@@ -10,7 +10,8 @@ namespace KmovieS.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
+        // GET api/values 
+        [Authorize]
         public IEnumerable<string> Get()
         {
             var httpRequest = HttpContext.Current.Request;
@@ -22,12 +23,14 @@ namespace KmovieS.Controllers
         }
 
         // GET api/values/5
+        [Authorize]
         public string Get(int id)
         {
             return "value";
         }
 
         // POST api/values
+        [Authorize]
         public HttpResponseMessage Post([FromBody]string value)
         {
             var httpRequest = HttpContext.Current.Request;
@@ -40,11 +43,13 @@ namespace KmovieS.Controllers
         }
 
         // PUT api/values/5
+        [Authorize]
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE api/values/5
+        [Authorize]
         public void Delete(int id)
         {
         }

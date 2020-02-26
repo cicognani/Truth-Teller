@@ -159,11 +159,11 @@ namespace KmovieS.Controllers
                     
                     // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
                     // Inviare un messaggio di posta elettronica con questo collegamento
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href='" + callbackUrl + "'>qui</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Registration", "Home");
                 }
                 AddErrors(result);
             }
@@ -441,7 +441,11 @@ namespace KmovieS.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                if (error.ToString().Contains("mail"))
+                {
+                ModelState.AddModelError("", "Indirizzo e-mail già in uso");
+                }
+                
             }
         }
 

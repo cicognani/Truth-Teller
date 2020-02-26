@@ -11,15 +11,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using KmovieS.Models;
+using System.Net;
+using System.Net.Mail;
 
 namespace KmovieS
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+         public async Task SendAsync(IdentityMessage message)
         {
-            // Inserire qui la parte di codice del servizio di posta elettronica per l'invio di un messaggio.
-            return Task.FromResult(0);
+                // Impostazioni di invio E-Mail
+
+                MailMessage mail = new MailMessage();
+                mail.BodyEncoding = System.Text.Encoding.UTF8;         
+                mail.SubjectEncoding = System.Text.Encoding.UTF8;
+                mail.From = new MailAddress("vittorio.cicognani@spekno.eu");
+                mail.To.Add(message.Destination);          
+                mail.Subject = message.Subject;
+                mail.Body = message.Body;    
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.SendCompleted += (s, e) => {
+                    smtp.Dispose();
+                };
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Port = 587; 
+                smtp.Host = "smtp.office365.com";
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("vittorio.cicognani@spekno.eu", "Vittorio*1971!");               
+                await smtp.SendMailAsync(mail);
+
         }
     }
 
@@ -82,7 +104,11 @@ namespace KmovieS
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                   new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                {
+                    //Code for email confirmation and reset password life time
+                    TokenLifespan = TimeSpan.FromHours(6)
+                 };
             }
             return manager;
         }
