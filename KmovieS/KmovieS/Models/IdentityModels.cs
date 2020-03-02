@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,11 +25,11 @@ namespace KmovieS.Models
         [Required]
         public System.DateTime JoinDate { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
-            // Tenere presente che il valore di authenticationType deve corrispondere a quello definito in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Aggiungere qui i reclami utente personalizzati
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            // Add custom user claims here
+
             return userIdentity;
         }
     }

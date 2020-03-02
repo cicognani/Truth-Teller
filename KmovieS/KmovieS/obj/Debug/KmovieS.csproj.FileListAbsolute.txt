@@ -357,3 +357,15 @@ C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\it\System.Web.WebPages
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.csproj.CopyComplete
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.dll
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.pdb
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.Owin.Security.Jwt.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Thinktecture.IdentityModel.Core.dll
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Microsoft.Owin.Security.Jwt.xml
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\Thinktecture.IdentityModel.Core.pdb

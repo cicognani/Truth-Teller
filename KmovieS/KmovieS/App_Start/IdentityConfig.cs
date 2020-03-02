@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using KmovieS.Models;
 using System.Net;
 using System.Net.Mail;
+using KmovieS.Models;
 
 namespace KmovieS
 {
@@ -122,10 +122,6 @@ namespace KmovieS
         {
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-        }
 
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
