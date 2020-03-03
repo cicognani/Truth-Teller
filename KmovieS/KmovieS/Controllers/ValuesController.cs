@@ -11,7 +11,7 @@ namespace KmovieS.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IEnumerable<string> Get()
         {
             var httpRequest = HttpContext.Current.Request;
