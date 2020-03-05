@@ -7,18 +7,18 @@ namespace KmovieS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class InitialCreate1 : IMigrationMetadata
+    public sealed partial class RegisterFull : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RegisterFull));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002261635327_InitialCreate1"; }
+            get { return "202003042032169_RegisterFull"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

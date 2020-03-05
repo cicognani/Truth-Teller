@@ -20,16 +20,28 @@ namespace KmovieS.Models
         public string LastName { get; set; }
 
         [Required]
-        public byte Level { get; set; }
+        [MaxLength(100)]
+        public string Company { get; set; }
 
         [Required]
-        public System.DateTime JoinDate { get; set; }
+        public byte Level { get; set; } = 1;
+
+        [Required]
+        public System.DateTime JoinDate { get; set; } = DateTime.Now;
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
 
+            return userIdentity;
+        }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        {
+            // Tenere presente che il valore di authenticationType deve corrispondere a quello definito in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Aggiungere qui i reclami utente personalizzati
             return userIdentity;
         }
     }
@@ -43,9 +55,18 @@ namespace KmovieS.Models
             Configuration.LazyLoadingEnabled = false;
         }
 
+        public DbSet<FileUpload> fileUpload
+        {
+            get;
+            set;
+        }
+
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }

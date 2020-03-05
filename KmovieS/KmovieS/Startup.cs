@@ -10,6 +10,9 @@ using System;
 using System.Configuration;
 using System.Web.Http;
 using System.Net.Http.Formatting;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.AspNet.Identity;
 
 [assembly: OwinStartupAttribute(typeof(KmovieS.Startup))]
 namespace KmovieS
@@ -18,7 +21,21 @@ namespace KmovieS
     {
         public void Configuration(IAppBuilder app)
         {
-    
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    // Consente all'applicazione di convalidare l'indicatore di sicurezza quando l'utente esegue l'accesso.
+                    // Questa funzionalità di sicurezza è utile quando si cambia una password o si aggiungono i dati di un account di accesso esterno all'account personale.  
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    validateInterval: TimeSpan.FromMinutes(30),
+                    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                }
+            });
+
+
             ConfigureOAuthTokenGeneration(app);
             ConfigureOAuthTokenConsumption(app);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
@@ -32,6 +49,8 @@ namespace KmovieS
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
+          
+           
 
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {

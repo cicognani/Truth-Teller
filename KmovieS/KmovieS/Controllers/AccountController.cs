@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using KmovieS.Models;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace KmovieS.Controllers
 {
@@ -151,8 +153,9 @@ namespace KmovieS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName=model.FirstName,LastName=model.LastName, Company=model.Company };
+
+               var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -166,6 +169,7 @@ namespace KmovieS.Controllers
                     return RedirectToAction("Registration", "Home");
                 }
                 AddErrors(result);
+            
             }
 
             // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form

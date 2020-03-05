@@ -63,3 +63,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* I CSS personalizzati vanno inseriti nel file Site.css*/
+label.mandatory:after {
+    content: "*";
+}

@@ -64,6 +64,22 @@ namespace KmovieS.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "Nome")]
+        [StringLength(100)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Cognome")]
+        [StringLength(100)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Azienda")]
+        [StringLength(100)]
+        public string Company { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Indirizzo di posta elettronica")]

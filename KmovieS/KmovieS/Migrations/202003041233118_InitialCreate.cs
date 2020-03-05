@@ -8,6 +8,18 @@
         public override void Up()
         {
             CreateTable(
+                "dbo.FileUploads",
+                c => new
+                    {
+                        imageid = c.Int(nullable: false, identity: true),
+                        imagename = c.String(),
+                        imagedata = c.Binary(),
+                        imagedateupload = c.DateTime(nullable: false),
+                        idUser = c.String(),
+                    })
+                .PrimaryKey(t => t.imageid);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -35,6 +47,10 @@
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(nullable: false, maxLength: 100),
+                        LastName = c.String(nullable: false, maxLength: 100),
+                        Level = c.Byte(nullable: false),
+                        JoinDate = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -94,6 +110,7 @@
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.FileUploads");
         }
     }
 }
