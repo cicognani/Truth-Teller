@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
 using KmovieS.Models;
 
 namespace KmovieS.Controllers
@@ -46,7 +47,7 @@ namespace KmovieS.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != fileUpload.imageid)
+            if (id != fileUpload.mediaid)
             {
                 return BadRequest();
             }
@@ -75,31 +76,67 @@ namespace KmovieS.Controllers
         // POST: api/FileUploads
         [ResponseType(typeof(FileUpload))]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         public IHttpActionResult PostFileUpload()
         {
-            if (HttpContext.Current.Request.Files.AllKeys.Any())
+
+
+            try
             {
-                // Get the uploaded image from the Files collection  
-                var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
-                if (httpPostedFile != null)
+                if (HttpContext.Current.Request.Files.AllKeys.Any())
                 {
-                    FileUpload imgupload = new FileUpload();
-                    int length = httpPostedFile.ContentLength;
-                    imgupload.imagedata = new byte[length]; //get imagedata  
-                    httpPostedFile.InputStream.Read(imgupload.imagedata, 0, length);
-                    imgupload.imagename = Path.GetFileName(httpPostedFile.FileName);
-                    imgupload.imagedateupload=DateTime.Now;
-                    imgupload.idUser = "Vittorio";
-                    db.fileUpload.Add(imgupload);
-                    db.SaveChanges();
-                    var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), httpPostedFile.FileName);
-                    // Save the uploaded file to "UploadedFiles" folder  
-                    httpPostedFile.SaveAs(fileSavePath);
-                    return Ok("Image Uploaded");
+                    // Get the uploaded media from the Files collection  
+
+                    var httpUploadedObjectReferenceId = HttpContext.Current.Request.Form["UploadedObjectReferenceId"];
+                    var httpUploadedTypeFile = HttpContext.Current.Request.Form["UploadedType"];
+                    var httpUploadedTagFile = HttpContext.Current.Request.Form["UploadedTag"];
+                    var httpUploadedSourceFile = HttpContext.Current.Request.Form["UploadedMediaSource"];
+                    var httpPostedFile = HttpContext.Current.Request.Files["UploadedMedia"];
+                    if (httpPostedFile != null)
+                    {
+                        FileUpload mediaupload = new FileUpload();
+                        mediaupload.mediatype = httpUploadedTypeFile.ToString();
+                        if ((mediaupload.mediatype.ToUpper() !="VIDEO") && (mediaupload.mediatype.ToUpper() != "IMAGE") && (mediaupload.mediatype.ToUpper() != "DOCUMENT"))
+                        {
+                            mediaupload.mediatype = "COMMON";
+                        }
+                        if(httpUploadedObjectReferenceId=="")
+                        {
+                            httpUploadedObjectReferenceId = "Unknown";
+                        }
+                        if (httpUploadedSourceFile == "")
+                        {
+                            httpUploadedSourceFile = "Unknown";
+                        }
+
+                        var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/"), httpPostedFile.FileName);
+                        int length = httpPostedFile.ContentLength;
+                        mediaupload.mediadata = new byte[length];
+                        httpPostedFile.InputStream.Read(mediaupload.mediadata, 0, length);
+                        mediaupload.medianame = Path.GetFileName(httpPostedFile.FileName);
+                        mediaupload.mediadateupload = DateTime.Now;
+                        mediaupload.mediatag = httpUploadedTagFile.ToString();
+                        mediaupload.objectReferenceId = httpUploadedObjectReferenceId.ToString();
+                        mediaupload.idUser = User.Identity.GetUserId();
+                        mediaupload.mediaextension = Path.GetExtension(fileSavePath);
+                        mediaupload.mediasize = length;                     
+                        mediaupload.mediasource = httpUploadedSourceFile;
+                        db.fileUpload.Add(mediaupload);
+                        db.SaveChanges();
+
+                        //Crea la directory e salva il file 
+                        Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/"));
+                        httpPostedFile.SaveAs(fileSavePath);
+                        return Ok("Media Uploaded");
+                    }
                 }
+                return Ok("Media is not Uploaded");
             }
-            return Ok("Image is not Uploaded");
+            catch (Exception e)
+            {
+                return Ok("Media error");
+            }
+
         }
 
         // DELETE: api/FileUploads/5
@@ -129,7 +166,7 @@ namespace KmovieS.Controllers
 
         private bool FileUploadExists(int id)
         {
-            return db.fileUpload.Count(e => e.imageid == id) > 0;
+            return db.fileUpload.Count(e => e.mediaid == id) > 0;
         }
     }
 }

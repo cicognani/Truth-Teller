@@ -13,7 +13,7 @@ namespace KmovieS.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202003041233118_InitialCreate"; }
+            get { return "202003071023513_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

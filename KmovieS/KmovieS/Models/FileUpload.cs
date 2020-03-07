@@ -11,36 +11,93 @@ namespace KmovieS.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int imageid
+        /* id media */
+        public int mediaid
         {
             get;
             set;
         }
-        public string imagename
+        /* Nome del media */
+        [Required]
+        public string medianame
         {
             get;
             set;
         }
-        public byte[] imagedata
+        /* Media memorizzato nel database */
+        [Required]
+        public byte[] mediadata
         {
             get;
             set;
         }
 
-        public DateTime imagedateupload
+        /* Tag descrittivo del media */
+        public string mediatag
         {
             get;
             set;
         }
 
+        /* Tipo del media - Valori consentiti sono IMAGE, VIDEO, DOCUMENT, se non viene inserito finisce nella cartella COMMON*/
+        [Required]
+        public string mediatype
+        {
+            get;
+            set;
+        } = "COMMON";
+
+        /* Data e ora del caricamento */
+        [Required]
+        public DateTime mediadateupload
+        {
+            get;
+            set;
+        }
+
+        /* Utente che ha caricato il media */
+        [Required]
         public string idUser
         {
             get;
             set;
         }
 
+        /* Id dell'oggetto a cui si riferisce */
+        [Required]
+        public string objectReferenceId
+        {
+            get;
+            set;
+        } = "Unknown";
 
-        /* Aggiungere campo IdUtente */
+        /* Estensione del media */
+        [Required]
+        public string mediaextension
+        {
+            get;
+            set;
+        }
+
+        /* Dimensione del media */
+        [Required]
+        public long mediasize
+        {
+            get;
+            set;
+        }
+
+        /* Provenienza del media */
+        [Required]
+        public string mediasource
+        {
+            get;
+            set;
+        } = "Unknown";
+
+
+
+
 
     }
 }

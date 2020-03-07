@@ -13,6 +13,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "KmovieS.Models.ApplicationDbContext";
         }
 
@@ -30,6 +31,7 @@
                 EmailConfirmed = true,
                 FirstName = "Vittorio",
                 LastName = "Cicognani",
+                Company = "Spekno",
                 Level = 1,
                 JoinDate = DateTime.Now.AddYears(-3)
             };
@@ -44,6 +46,7 @@
                 EmailConfirmed = true,
                 FirstName = "Vittorio",
                 LastName = "Cicognani",
+                Company= "Movinsoft",
                 Level = 1,
                 JoinDate = DateTime.Now.AddYears(-3)
             };

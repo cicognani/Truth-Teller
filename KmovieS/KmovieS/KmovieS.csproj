@@ -213,13 +213,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
-    <Compile Include="Migrations\202003041233118_InitialCreate.cs" />
-    <Compile Include="Migrations\202003041233118_InitialCreate.designer.cs">
-      <DependentUpon>202003041233118_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003042032169_RegisterFull.cs" />
-    <Compile Include="Migrations\202003042032169_RegisterFull.designer.cs">
-      <DependentUpon>202003042032169_RegisterFull.cs</DependentUpon>
+    <Compile Include="Migrations\202003071023513_InitialCreate.cs" />
+    <Compile Include="Migrations\202003071023513_InitialCreate.designer.cs">
+      <DependentUpon>202003071023513_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -397,11 +393,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003041233118_InitialCreate.resx">
-      <DependentUpon>202003041233118_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003042032169_RegisterFull.resx">
-      <DependentUpon>202003042032169_RegisterFull.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003071023513_InitialCreate.resx">
+      <DependentUpon>202003071023513_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

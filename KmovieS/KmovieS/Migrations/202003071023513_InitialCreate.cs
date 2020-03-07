@@ -11,13 +11,14 @@
                 "dbo.FileUploads",
                 c => new
                     {
-                        imageid = c.Int(nullable: false, identity: true),
-                        imagename = c.String(),
-                        imagedata = c.Binary(),
-                        imagedateupload = c.DateTime(nullable: false),
+                        mediaid = c.Int(nullable: false, identity: true),
+                        medianame = c.String(),
+                        mediadata = c.Binary(),
+                        mediatag = c.String(),
+                        mediadateupload = c.DateTime(nullable: false),
                         idUser = c.String(),
                     })
-                .PrimaryKey(t => t.imageid);
+                .PrimaryKey(t => t.mediaid);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -49,6 +50,7 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(nullable: false, maxLength: 100),
                         LastName = c.String(nullable: false, maxLength: 100),
+                        Company = c.String(nullable: false, maxLength: 100),
                         Level = c.Byte(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),
