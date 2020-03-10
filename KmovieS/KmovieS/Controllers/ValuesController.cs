@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,8 +11,8 @@ namespace KmovieS.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values 
-        [Authorize(Roles = "Admin")]
+        // GET api/values per ottenere lo UserID
+        [Authorize(Roles = "User")]
         public IEnumerable<string> Get()
         {
             var httpRequest = HttpContext.Current.Request;
@@ -19,39 +20,8 @@ namespace KmovieS.Controllers
             {
                 return new string[] { "Not Authorized" };
             }
-            return new string[] { "value1", "value2" };
+            return new string[] { User.Identity.GetUserId().ToString()};
         }
-
-        // GET api/values/5
-        [Authorize]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [Authorize]
-        public HttpResponseMessage Post([FromBody]string value)
-        {
-            var httpRequest = HttpContext.Current.Request;
-            if (!httpRequest.IsAuthenticated)
-            {
-                return Request.CreateResponse(HttpStatusCode.Unauthorized);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.Created, value);
-        }
-
-        // PUT api/values/5
-        [Authorize]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [Authorize]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

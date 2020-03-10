@@ -368,3 +368,4 @@ C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.dll
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.pdb
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.Migrations.InitialCreate.resources
 C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\obj\Debug\KmovieS.csproj.GenerateResource.cache
+C:\Users\Vittorio\source\repos\APIKEY\KmovieS\KmovieS\bin\PayPalCoreSDK.dll

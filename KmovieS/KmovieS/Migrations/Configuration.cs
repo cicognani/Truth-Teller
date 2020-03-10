@@ -47,7 +47,7 @@
                 FirstName = "Vittorio",
                 LastName = "Cicognani",
                 Company= "Movinsoft",
-                Level = 1,
+                Level = 2,
                 JoinDate = DateTime.Now.AddYears(-3)
             };
 

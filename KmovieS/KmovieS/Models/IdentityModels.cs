@@ -23,8 +23,9 @@ namespace KmovieS.Models
         [MaxLength(100)]
         public string Company { get; set; }
 
+        /*Level 1 rappresenta l'Admin, Level 2 lo User standard*/
         [Required]
-        public byte Level { get; set; } = 1;
+        public byte Level { get; set; } = 2;
 
         [Required]
         public System.DateTime JoinDate { get; set; } = DateTime.Now;
