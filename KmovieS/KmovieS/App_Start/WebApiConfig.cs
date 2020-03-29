@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using KmovieS.Utilities;
 using Newtonsoft.Json.Serialization;
 
 namespace KmovieS
@@ -15,6 +16,7 @@ namespace KmovieS
 
             // Route dell'API Web
             config.MapHttpAttributeRoutes();
+            config.MessageHandlers.Add(new AutoLogDelegateHandler());
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.OfType<JsonMediaTypeFormatter>().First();

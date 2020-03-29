@@ -21,11 +21,20 @@
         {
             //  This method will be called after migrating to the latest version.
 
+            if (!context.pointCost.Any())
+            {
+                context.pointCost.AddOrUpdate(
+                    new PointCost { APIFullname = "FileUploads-POST", cost = 50}
+                );
+            }
+
+
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
 
             var userAdmin = new ApplicationUser()
             {
+
                 UserName = "SuperPowerUser",
                 Email = "cicognani.vittorio@gmail.com",
                 EmailConfirmed = true,
@@ -33,7 +42,8 @@
                 LastName = "Cicognani",
                 Company = "Spekno",
                 Level = 1,
-                JoinDate = DateTime.Now.AddYears(-3)
+                JoinDate = DateTime.Now.AddYears(-3),
+                PointsLeft = 0
             };
 
             manager.Create(userAdmin, "MySuperP@ssword!");
@@ -46,9 +56,10 @@
                 EmailConfirmed = true,
                 FirstName = "Vittorio",
                 LastName = "Cicognani",
-                Company= "Movinsoft",
+                Company = "Movinsoft",
                 Level = 2,
-                JoinDate = DateTime.Now.AddYears(-3)
+                JoinDate = DateTime.Now.AddYears(-3),
+                PointsLeft = 0
             };
 
             manager.Create(userSimple, "MySimpleP@ssword!");
@@ -75,4 +86,5 @@
 
         }
     }
+
 }

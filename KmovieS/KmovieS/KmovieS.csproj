@@ -212,24 +212,29 @@
     <Compile Include="Controllers\FileUploadsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PointCostsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
-    <Compile Include="Migrations\202003071023513_InitialCreate.cs" />
-    <Compile Include="Migrations\202003071023513_InitialCreate.designer.cs">
-      <DependentUpon>202003071023513_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202003241631304_Initial.cs" />
+    <Compile Include="Migrations\202003241631304_Initial.designer.cs">
+      <DependentUpon>202003241631304_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FileUpload.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LogCalls.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PointCost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\AutoLogDelegateHandler.cs" />
+    <Compile Include="Models\GlobalVariable.cs" />
     <Compile Include="Utilities\PayPalConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +397,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\LogCalls\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -405,8 +411,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003071023513_InitialCreate.resx">
-      <DependentUpon>202003071023513_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003241631304_Initial.resx">
+      <DependentUpon>202003241631304_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

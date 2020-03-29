@@ -12,7 +12,7 @@ namespace KmovieS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /* id media */
-        public int mediaid
+        public long mediaid
         {
             get;
             set;
@@ -39,7 +39,7 @@ namespace KmovieS.Models
             set;
         }
 
-        /* Tipo del media - Valori consentiti sono IMAGE, VIDEO, DOCUMENT, se non viene inserito finisce nella cartella COMMON*/
+        /* Tipo del media - Valori consentiti sono IMAGE,IMAGE360, VIDEO, VIDEO380, DOCUMENT, se non viene inserito finisce nella cartella COMMON*/
         [Required]
         public string mediatype
         {

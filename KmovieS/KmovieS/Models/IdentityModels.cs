@@ -30,6 +30,10 @@ namespace KmovieS.Models
         [Required]
         public System.DateTime JoinDate { get; set; } = DateTime.Now;
 
+        /*Punti utente*/
+        [Required]
+        public int PointsLeft { get; set; } = 0;
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
@@ -61,7 +65,16 @@ namespace KmovieS.Models
             get;
             set;
         }
-
+        public DbSet<PointCost> pointCost
+        {
+            get;
+            set;
+        }
+        public DbSet<LogCalls> logCall
+        {
+            get;
+            set;
+        }
 
 
         public static ApplicationDbContext Create()

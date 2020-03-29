@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -11,14 +11,40 @@
                 "dbo.FileUploads",
                 c => new
                     {
-                        mediaid = c.Int(nullable: false, identity: true),
-                        medianame = c.String(),
-                        mediadata = c.Binary(),
+                        mediaid = c.Long(nullable: false, identity: true),
+                        medianame = c.String(nullable: false),
+                        mediadata = c.Binary(nullable: false),
                         mediatag = c.String(),
+                        mediatype = c.String(nullable: false),
                         mediadateupload = c.DateTime(nullable: false),
-                        idUser = c.String(),
+                        idUser = c.String(nullable: false),
+                        objectReferenceId = c.String(nullable: false),
+                        mediaextension = c.String(nullable: false),
+                        mediasize = c.Long(nullable: false),
+                        mediasource = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.mediaid);
+            
+            CreateTable(
+                "dbo.LogCalls",
+                c => new
+                    {
+                        callid = c.Long(nullable: false, identity: true),
+                        APIFullname = c.String(nullable: false),
+                        cost = c.Int(nullable: false),
+                        calldate = c.DateTime(nullable: false),
+                        idUser = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.callid);
+            
+            CreateTable(
+                "dbo.PointCosts",
+                c => new
+                    {
+                        APIFullname = c.String(nullable: false, maxLength: 128),
+                        cost = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.APIFullname);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -53,6 +79,7 @@
                         Company = c.String(nullable: false, maxLength: 100),
                         Level = c.Byte(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
+                        PointsLeft = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -112,6 +139,8 @@
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.PointCosts");
+            DropTable("dbo.LogCalls");
             DropTable("dbo.FileUploads");
         }
     }
