@@ -140,15 +140,22 @@ namespace KmovieS.Controllers
                             mediaupload.mediaextension = Path.GetExtension(fileSavePath);
                             mediaupload.mediasize = length;
                             mediaupload.mediasource = httpUploadedSourceFile;
+                            mediaupload.mediapath = fileSavePath;
                             db.fileUpload.Add(mediaupload);
                             db.SaveChanges();
                             //Calcolo l'ID creato
                             long id = mediaupload.mediaid;
 
                             //Crea la directory e salva il file 
-                            var MyFilePath = "/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/";
+                            var MyFilePath = "/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/" + id.ToString() + "/";
                             Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~" + MyFilePath));
+                            fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/" + id.ToString() + "/"), httpPostedFile.FileName);
                             httpPostedFile.SaveAs(fileSavePath);
+
+                            // Aggiorno il record con il percorso che include l'ID
+                            var mediauploaded = db.fileUpload.Single(a => a.mediaid == id);
+                            mediauploaded.mediapath = fileSavePath;
+                            db.SaveChanges();
 
                             //Scrive nella tabella LogCalls la chiamata
                             LogCalls myLog = new LogCalls();

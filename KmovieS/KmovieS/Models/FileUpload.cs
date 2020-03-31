@@ -24,6 +24,14 @@ namespace KmovieS.Models
             get;
             set;
         }
+        /* Percorso in cui è stato memorizzato il media */
+        [Required]
+        public string mediapath
+        {
+            get;
+            set;
+        }
+
         /* Media memorizzato nel database */
         [Required]
         public byte[] mediadata
