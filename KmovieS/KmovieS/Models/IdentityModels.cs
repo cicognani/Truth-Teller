@@ -34,6 +34,9 @@ namespace KmovieS.Models
         [Required]
         public int PointsLeft { get; set; } = 0;
 
+        [Required]
+        public System.DateTime PointsDateExpiration { get; set; } = DateTime.Now;
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

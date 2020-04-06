@@ -24,13 +24,22 @@ namespace KmovieS.Models
             get;
             set;
         }
-        /* Percorso in cui è stato memorizzato il media */
+        /* Percorso fisico in cui è stato memorizzato il media */
         [Required]
         public string mediapath
         {
             get;
             set;
         }
+
+        /* URL in cui è stato memorizzato il media */
+        [Required]
+        public string urlpath
+        {
+            get;
+            set;
+        }
+
 
         /* Media memorizzato nel database */
         [Required]

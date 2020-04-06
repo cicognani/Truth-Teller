@@ -128,12 +128,14 @@ namespace KmovieS.Controllers
                                 httpUploadedSourceFile = "Unknown";
                             }
 
+                            var MyBaseAddress = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
                             var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/"), httpPostedFile.FileName);
                             int length = httpPostedFile.ContentLength;
                             mediaupload.mediadata = new byte[length];
                             httpPostedFile.InputStream.Read(mediaupload.mediadata, 0, length);
                             mediaupload.medianame = Path.GetFileName(httpPostedFile.FileName);
                             mediaupload.mediadateupload = DateTime.Now;
+                            // Nel campo TAG passato tramite APP deve esserci una di queste diciture: FOTO360_1, FOTO360_2, FOTO360_3, FOTO360_4, VIDEO, VIDEO380
                             mediaupload.mediatag = httpUploadedTagFile.ToString();
                             mediaupload.objectReferenceId = httpUploadedObjectReferenceId.ToString();
                             mediaupload.idUser = User.Identity.GetUserId();
@@ -141,6 +143,7 @@ namespace KmovieS.Controllers
                             mediaupload.mediasize = length;
                             mediaupload.mediasource = httpUploadedSourceFile;
                             mediaupload.mediapath = fileSavePath;
+                            mediaupload.urlpath = MyBaseAddress;
                             db.fileUpload.Add(mediaupload);
                             db.SaveChanges();
                             //Calcolo l'ID creato
@@ -152,9 +155,12 @@ namespace KmovieS.Controllers
                             fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + mediaupload.mediatype + "/" + id.ToString() + "/"), httpPostedFile.FileName);
                             httpPostedFile.SaveAs(fileSavePath);
 
-                            // Aggiorno il record con il percorso che include l'ID
+                            var MyJsonPath = MyBaseAddress + MyFilePath + httpPostedFile.FileName;
+
+                            // Aggiorno il record con il percorso fisico e virtuale che include l'ID
                             var mediauploaded = db.fileUpload.Single(a => a.mediaid == id);
                             mediauploaded.mediapath = fileSavePath;
+                            mediaupload.urlpath = MyJsonPath;
                             db.SaveChanges();
 
                             //Scrive nella tabella LogCalls la chiamata
@@ -177,7 +183,7 @@ namespace KmovieS.Controllers
 
                             // Aggiorno nella tabella il record LOGCALLS il record interessato dall'aggiornamento
                             var RecordLogCalls = db.logCall.Single(a => a.callid == GlobalVariable.LogCallID);
-                            RecordLogCalls.APIFullname = myAPIFullName;
+                            RecordLogCalls.APIFullname = myAPIFullNameMethod;
                             RecordLogCalls.cost = myAPICost;
                             db.SaveChanges();
 
@@ -185,8 +191,6 @@ namespace KmovieS.Controllers
                             GlobalVariable.LogCallID = 0;
 
 
-                            var MyBaseAddress = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
-                            var MyJsonPath = MyBaseAddress + MyFilePath + httpPostedFile.FileName;
                             //Restituisce il JSON contenente URL assoluto e ID Media
                             return Json(new { mediaURL = MyJsonPath, mediaID = id });
                         }
@@ -205,22 +209,79 @@ namespace KmovieS.Controllers
 
         }
 
-        // DELETE: api/FileUploads/5
+        // DELETE: api/FileUploads/5 -> Passo il mediaid che la APP avrà ricevuto in fase di upload tramite il JSON di ritorno
         [HttpDelete]
         [Authorize(Roles = "Admin, User")]
         [ResponseType(typeof(FileUpload))]
         public IHttpActionResult DeleteFileUpload(int id)
         {
-            FileUpload fileUpload = db.fileUpload.Find(id);
-            if (fileUpload == null)
+            string myURI = Url.Request.RequestUri.ToString();
+            string myAPIFullName = GlobalVariable.RetrieveFullAPIName(myURI);
+            string myMethod = Url.Request.Method.ToString();
+            string myAPIFullNameMethod = myAPIFullName + "-" + myMethod;
+
+            if (GlobalVariable.CheckPointCall(User.Identity.GetUserId(), myAPIFullNameMethod))
             {
-                return NotFound();
+
+                FileUpload fileUpload = db.fileUpload.Find(id);
+                if (fileUpload == null)
+                {
+                    return Ok("Media not found");
+                }
+
+                //Se esiste cancello il file fisicamente dal disco e la cartella in cui è contenuto
+                if (File.Exists(fileUpload.mediapath))
+                {
+                    try
+                    {
+                        File.Delete(fileUpload.mediapath);
+                        Directory.Delete(Path.GetDirectoryName(fileUpload.mediapath));
+                    }
+                    catch (Exception ex)
+                    {
+                        return Ok("Media error");
+                    }
+                }
+
+                // Rimuovo il record dalla tabella FileUpload         
+                db.fileUpload.Remove(fileUpload);
+                db.SaveChanges();
+
+                //Scrive nella tabella LogCalls la chiamata
+                LogCalls myLog = new LogCalls();
+                myLog.APIFullname = myAPIFullNameMethod;
+                myLog.idUser = User.Identity.GetUserId();
+                myLog.calldate = DateTime.Now;
+                // Il costo della cancellazione è gratuito
+                myLog.cost = 0;
+                db.logCall.Add(myLog);
+                db.SaveChanges();
+
+                //Calcolo l'ID creato e lo metto nella variabile globale
+                GlobalVariable.LogCallID = myLog.callid;
+
+                // Recupero il costo dell'API                    
+                int myAPICost = GlobalVariable.ApiCost(myAPIFullNameMethod);
+
+                // Scalo i punti all'utente
+                GlobalVariable.UserPointSubtract(myAPICost, User.Identity.GetUserId());
+
+                // Aggiorno nella tabella il record LOGCALLS il record interessato dall'aggiornamento
+                var RecordLogCalls = db.logCall.Single(a => a.callid == GlobalVariable.LogCallID);
+                RecordLogCalls.APIFullname = myAPIFullNameMethod;
+                RecordLogCalls.cost = myAPICost;
+                db.SaveChanges();
+
+                // Azzero le variabili globali LOGCallID
+                GlobalVariable.LogCallID = 0;
+
+                return Ok("Media deleted");
+            }
+            else
+            {
+                return Ok("Too less credits");
             }
 
-            db.fileUpload.Remove(fileUpload);
-            db.SaveChanges();
-
-            return Ok(fileUpload);
         }
 
         protected override void Dispose(bool disposing)

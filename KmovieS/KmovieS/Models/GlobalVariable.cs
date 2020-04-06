@@ -47,6 +47,18 @@ namespace KmovieS.Utilities
         }
 
 
+        public static void UserPointAdd(int PointBuyed, string myUserId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            // Aggiungo i punti all'utente
+            var UserCall = db.Users.Single(a => a.Id == myUserId);
+            UserCall.PointsLeft = UserCall.PointsLeft + PointBuyed;
+            UserCall.PointsDateExpiration = DateTime.Today.AddDays(360);
+            db.SaveChanges();
+        }
+
+
+
         public static string RetrieveFullAPIName(string Req)
         {
         string myAPIFullName;
@@ -70,7 +82,7 @@ namespace KmovieS.Utilities
         public static Boolean CheckPointCall(string myUsername, string parAPIFullname)
         {
             Boolean permitted = false;
-            if (UserPointLeft(myUsername)-ApiCost(parAPIFullname)>0)
+            if (UserPointLeft(myUsername)-ApiCost(parAPIFullname)>=0)
             {
                 permitted = true;
             }
