@@ -49,38 +49,147 @@ namespace KmovieS.Controllers
         // PUT: api/FileUploads/5
         [HttpPut]
         [Authorize(Roles = "Admin, User")]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutFileUpload(int id, FileUpload fileUpload)
+        [ResponseType(typeof(FileUpload))]
+        public IHttpActionResult PutFileUpload(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != fileUpload.mediaid)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(fileUpload).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                string myURI = Url.Request.RequestUri.ToString();
+                string myAPIFullName = GlobalVariable.RetrieveFullAPIName(myURI);
+                string myMethod = Url.Request.Method.ToString();
+                string myAPIFullNameMethod = myAPIFullName + "-" + myMethod;
+
+                //Controllo se ci sono abbastanza punti
+                if (GlobalVariable.CheckPointCall(User.Identity.GetUserId(), myAPIFullNameMethod))
+                {
+                    if (HttpContext.Current.Request.Files.AllKeys.Any())
+                    {
+
+                        // Get the uploaded media from the Files collection  
+
+                        var httpUploadedObjectReferenceId = HttpContext.Current.Request.Form["UploadedObjectReferenceId"];
+                        var httpUploadedTypeFile = HttpContext.Current.Request.Form["UploadedType"];
+                        var httpUploadedTagFile = HttpContext.Current.Request.Form["UploadedTag"];
+                        var httpUploadedSourceFile = HttpContext.Current.Request.Form["UploadedMediaSource"];
+                        var httpPostedFile = HttpContext.Current.Request.Files["UploadedMedia"];
+                        if (httpPostedFile != null)
+                        {
+
+
+                            var myRecordToUpdate = db.fileUpload.Single(a => a.mediaid ==id);
+                            myRecordToUpdate.mediatype = httpUploadedTypeFile.ToString();
+                            if ((myRecordToUpdate.mediatype.ToUpper() != "VIDEO") && (myRecordToUpdate.mediatype.ToUpper() != "VIDEO380") && (myRecordToUpdate.mediatype.ToUpper() != "IMAGE360") && (myRecordToUpdate.mediatype.ToUpper() != "IMAGE") && (myRecordToUpdate.mediatype.ToUpper() != "DOCUMENT"))
+                            {
+                                myRecordToUpdate.mediatype = "COMMON";
+                            }
+                            if (httpUploadedObjectReferenceId == "")
+                            {
+                                httpUploadedObjectReferenceId = "Unknown";
+                            }
+                            if (httpUploadedSourceFile == "")
+                            {
+                                httpUploadedSourceFile = "Unknown";
+                            }
+
+                            var MyBaseAddress = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+                            var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + myRecordToUpdate.mediatype + "/" + id.ToString() + "/"), httpPostedFile.FileName);
+                            int length = httpPostedFile.ContentLength;
+                            myRecordToUpdate.mediadata = new byte[length];
+                            httpPostedFile.InputStream.Read(myRecordToUpdate.mediadata, 0, length);                          
+                            myRecordToUpdate.medianame = Path.GetFileName(httpPostedFile.FileName);
+                            myRecordToUpdate.mediadateupload = DateTime.Now;
+                            // Nel campo TAG passato tramite APP deve esserci una di queste diciture: FOTO360_1, FOTO360_2, FOTO360_3, FOTO360_4, VIDEO, VIDEO380
+                            myRecordToUpdate.mediatag = httpUploadedTagFile.ToString();
+                            myRecordToUpdate.objectReferenceId = httpUploadedObjectReferenceId.ToString();
+                            myRecordToUpdate.idUser = User.Identity.GetUserId();
+                            myRecordToUpdate.mediaextension = Path.GetExtension(fileSavePath);
+                            myRecordToUpdate.mediasize = length;
+                            myRecordToUpdate.mediasource = httpUploadedSourceFile;
+                            string oldpath = myRecordToUpdate.mediapath;
+                            myRecordToUpdate.mediapath = fileSavePath;
+                            myRecordToUpdate.urlpath = MyBaseAddress;
+                            db.SaveChanges();
+
+
+                            //Elimino il vecchio file e salvo il nuovo 
+                            var MyFilePath = "/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + myRecordToUpdate.mediatype + "/" + id.ToString() + "/";
+                            //Se esiste cancello il file fisicamente dal disco 
+                            if (File.Exists(oldpath))
+                            {
+                                try
+                                {
+                                    File.Delete(oldpath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    return Ok("Media error");
+                                }
+                            }
+
+                            fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles/" + User.Identity.GetUserId() + "/" + httpUploadedObjectReferenceId + "/" + myRecordToUpdate.mediatype + "/" + id.ToString() + "/"), httpPostedFile.FileName);
+                            httpPostedFile.SaveAs(fileSavePath);
+                            var MyJsonPath = MyBaseAddress + MyFilePath + httpPostedFile.FileName;
+
+                            //Scrive nella tabella LogCalls la chiamata
+                            LogCalls myLog = new LogCalls();
+                            myLog.APIFullname = myAPIFullNameMethod;
+                            myLog.idUser = myRecordToUpdate.idUser;
+                            myLog.calldate = myRecordToUpdate.mediadateupload;
+                            myLog.cost = 0;
+                            db.logCall.Add(myLog);
+                            db.SaveChanges();
+
+                            //Calcolo l'ID creato e lo metto nella variabile globale
+                            GlobalVariable.LogCallID = myLog.callid;
+
+                            // Recupero il costo dell'API                    
+                            int myAPICost = GlobalVariable.ApiCost(myAPIFullNameMethod);
+
+                            // Scalo i punti all'utente
+                            GlobalVariable.UserPointSubtract(myAPICost, User.Identity.GetUserId());
+
+                            // Aggiorno nella tabella il record LOGCALLS il record interessato dall'aggiornamento
+                            var RecordLogCalls = db.logCall.Single(a => a.callid == GlobalVariable.LogCallID);
+                            RecordLogCalls.APIFullname = myAPIFullNameMethod;
+                            RecordLogCalls.cost = myAPICost;
+                            db.SaveChanges();
+
+                            // Azzero le variabili globali LOGCallID
+                            GlobalVariable.LogCallID = 0;
+
+
+                            //Restituisce il JSON contenente URL assoluto e ID Media
+                            return Json(new { mediaURL = MyJsonPath, mediaID = id });
+                        }
+                    }
+                    return Ok("Media is not Uploaded");
+                }
+                else
+                {
+                    return Ok("Too less credits");
+                }
+
+
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!FileUploadExists(id))
                 {
-                    return NotFound();
+                    return Ok("File not found");
                 }
                 else
                 {
-                    throw;
+                    return Ok("Concurrency error");
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            
         }
 
         // POST: api/FileUploads
