@@ -58,7 +58,7 @@ namespace KmovieS
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new CustomOAuthProvider(),
-                AccessTokenFormat = new CustomJwtFormat("http://localhost:44386")
+                AccessTokenFormat = new CustomJwtFormat("https://localhost:443")
             };
 
             // Token Generation
@@ -68,8 +68,8 @@ namespace KmovieS
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
-
-            var issuer = "http://localhost:44386";
+            // https://kmovies.westeurope.cloudapp.azure.com/
+            var issuer = "https://localhost:443";
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
 
