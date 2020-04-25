@@ -7,27 +7,15 @@ using System.Web;
 
 namespace T2.Models
 {
-
-    public class PointCost
+    public class CategoriesModel
     {
-        /* Nome dell'API e metodo (sintassi API-Metodo)*/
+        /* ID */
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string APIFullname
+        public long Category
         {
             get;
             set;
         }
-       
-        /* Costo chiamata*/
-        [Required]
-        public int cost
-        {
-            get;
-            set;
-        }
-
-
-
     }
 }

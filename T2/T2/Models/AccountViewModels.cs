@@ -6,7 +6,7 @@ namespace T2.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         public string Email { get; set; }
     }
 
@@ -29,11 +29,11 @@ namespace T2.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Codice")]
+        [Display(Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Memorizzare questo browser?")]
+        [Display(Name = "Remember in this browser?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -42,14 +42,14 @@ namespace T2.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -58,7 +58,7 @@ namespace T2.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Memorizza credenziali")]
+        [Display(Name = "Save credentials")]
         public bool RememberMe { get; set; }
     }
 
@@ -66,34 +66,29 @@ namespace T2.Models
     {
 
         [Required]
-        [Display(Name = "Nome")]
+        [Display(Name = "First name")]
         [StringLength(100)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Cognome")]
+        [Display(Name = "Last name")]
         [StringLength(100)]
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Azienda")]
-        [StringLength(100)]
-        public string Company { get; set; }
-
-        [Required]
         [EmailAddress]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "La lunghezza di {0} deve essere di almeno {2} caratteri.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Length of {0} should be at least {2} chars.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Conferma password")]
-        [Compare("Password", ErrorMessage = "La password e la password di conferma non corrispondono.")]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "Password and confirm password don't match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -101,18 +96,18 @@ namespace T2.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "La lunghezza di {0} deve essere di almeno {2} caratteri.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Length of {0} should be at least {2} chars.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Conferma password")]
-        [Compare("Password", ErrorMessage = "La password e la password di conferma non corrispondono.")]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "Password and confirm password don't match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -122,7 +117,7 @@ namespace T2.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Indirizzo di posta elettronica")]
+        [Display(Name = "E-mail address")]
         public string Email { get; set; }
     }
 }

@@ -34,13 +34,13 @@ namespace AspNetIdentity.WebApi.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "Nome utente o password errati.");
+                context.SetError("invalid_grant", "Wrong username or password.");
                 return;
             }
 
             if (!user.EmailConfirmed)
             {
-                context.SetError("invalid_grant", "E-mail non confermata dall'utente.");
+                context.SetError("invalid_grant", "E-mail not confirmed by user.");
                 return;
             }
 

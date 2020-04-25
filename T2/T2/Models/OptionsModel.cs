@@ -5,51 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
+
 namespace T2.Models
 {
-    public class LogCalls
+    public class OptionsModel
     {
 
+        /* ID Option*/
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        /* id chiamata */
-        public long callid
-        {
-            get;
-            set;
-        }
-        /* Nome dell'API chiamata */
-        [Required]
-        public string APIFullname
+        public long Id
         {
             get;
             set;
         }
 
-        /* Costo chiamata*/
+        /*Option Name*/
         [Required]
-        public int cost
+        public string OptionName
         {
             get;
             set;
         }
 
-        /* Data e ora della chiamata */
+        /*Option Value */
         [Required]
-        public DateTime calldate
+        public string OptionValue
         {
             get;
             set;
         }
 
-        /* Utente che ha fatto la chiamata */
-        [Required]
-        public string idUser
-        {
-            get;
-            set;
-        }
 
     }
-
 }

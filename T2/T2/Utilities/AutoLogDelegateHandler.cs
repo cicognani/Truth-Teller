@@ -23,12 +23,8 @@ namespace T2.Utilities
                    
                     HttpResponseMessage response = task.Result;
                         
-                    // Si può utilizzare questa zona per creare un log completo delle chiamata
-                        //var Req = request.ToString();
-                        //int firstapex = Req.IndexOf("'");
-                        //int secondapex = Req.IndexOf("'", firstapex + 1);
-                        //int lastslash = Req.Substring(0, secondapex).LastIndexOf("/");
-                        //string myAPIFullName = Req.Substring(lastslash + 1, secondapex - lastslash - 1);                    
+                    // Use this zone for a complete log
+                                        
 
                         return response;
                 

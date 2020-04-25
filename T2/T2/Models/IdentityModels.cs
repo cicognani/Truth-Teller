@@ -8,34 +8,39 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace T2.Models
 {
-    // È possibile aggiungere dati del profilo per l'utente aggiungendo altre proprietà alla classe ApplicationUser. Per altre informazioni, vedere https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
+        /*First name*/
         [Required]
         [MaxLength(100)]
         public string FirstName { get; set; }
 
+        /*Last name*/
         [Required]
         [MaxLength(100)]
         public string LastName { get; set; }
 
+        /*Level 1 represents Admin, Level 2 certificator user, Level 3 normal user*/
         [Required]
-        [MaxLength(100)]
-        public string Company { get; set; }
-
-        /*Level 1 rappresenta l'Admin, Level 2 lo User standard*/
+        public byte Level { get; set; } = 3;
+        
+        /*Total segnalation*/
         [Required]
-        public byte Level { get; set; } = 2;
+        public int TotalSegnalation{ get; set; } = 0;
 
+        /*Date of subscription*/
         [Required]
         public System.DateTime JoinDate { get; set; } = DateTime.Now;
 
-        /*Punti utente*/
+        /*Total correct answers*/
         [Required]
-        public int PointsLeft { get; set; } = 0;
+        public int NCorrectAnswers { get; set; } = 0;
 
+        /*Total fault answers*/
         [Required]
-        public System.DateTime PointsDateExpiration { get; set; } = DateTime.Now;
+        public int NFaultAnswers { get; set; } = 0;
+
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -47,9 +52,9 @@ namespace T2.Models
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            // Tenere presente che il valore di authenticationType deve corrispondere a quello definito in CookieAuthenticationOptions.AuthenticationType
+            
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Aggiungere qui i reclami utente personalizzati
+            
             return userIdentity;
         }
     }
@@ -63,21 +68,44 @@ namespace T2.Models
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public DbSet<FileUpload> fileUpload
+        public DbSet<LinksModel> Links
         {
             get;
             set;
         }
-        public DbSet<PointCost> pointCost
+        public DbSet<CategoriesModel> Categories
         {
             get;
             set;
         }
-        public DbSet<LogCalls> logCall
+        public DbSet<RatiesModel> Raties
         {
             get;
             set;
         }
+        public DbSet<ExpertizeModel> Expertize
+        {
+            get;
+            set;
+        }
+
+        public DbSet<WhitelistModel> Whitelist
+        {
+            get;
+            set;
+        }
+
+        public DbSet<BlacklistModel> Blacklist
+        {
+            get;
+            set;
+        }
+
+        public DbSet<OptionsModel> Options        {
+            get;
+            set;
+        }
+
 
 
         public static ApplicationDbContext Create()

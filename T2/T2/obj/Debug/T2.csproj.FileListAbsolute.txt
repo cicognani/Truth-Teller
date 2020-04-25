@@ -125,8 +125,6 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.resources.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.Razor.resources.dll
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.Migrations.Initial.resources
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.GenerateResource.cache
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.CoreCompileInputs.cache
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.CopyComplete
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.dll.config
@@ -135,3 +133,5 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.pdb
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.pdb
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.Migrations.FirstDeploy.resources
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.GenerateResource.cache

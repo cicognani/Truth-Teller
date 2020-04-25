@@ -75,8 +75,7 @@ namespace T2.Controllers
                 return View(model);
             }
 
-            // Questa opzione non calcola il numero di tentativi di accesso non riusciti per il blocco dell'account
-            // Per abilitare il conteggio degli errori di password per attivare il blocco, impostare shouldLockout: true
+            
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -88,7 +87,7 @@ namespace T2.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Tentativo di accesso non valido.");
+                    ModelState.AddModelError("", "Not valid access attempt.");
                     return View(model);
             }
         }
@@ -98,7 +97,7 @@ namespace T2.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
-            // Impostare come condizione che l'utente abbia già eseguito l'accesso con nome utente/password o account di accesso esterno
+
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
@@ -118,10 +117,7 @@ namespace T2.Controllers
                 return View(model);
             }
 
-            // La parte di codice seguente protegge i codici di autenticazione a due fattori dagli attacchi di forza bruta. 
-            // Se un utente immette codici non corretti in un intervallo di tempo specificato, l'account dell'utente 
-            // viene bloccato per un intervallo di tempo specificato. 
-            // Si possono configurare le impostazioni per il blocco dell'account in IdentityConfig
+           
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
@@ -131,7 +127,7 @@ namespace T2.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Codice non valido.");
+                    ModelState.AddModelError("", "Code not valid.");
                     return View(model);
             }
         }
@@ -153,7 +149,7 @@ namespace T2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName=model.FirstName,LastName=model.LastName, Company=model.Company };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName=model.FirstName,LastName=model.LastName};
                 var result = await UserManager.CreateAsync(user, model.Password);
               
                 if (result.Succeeded)
@@ -162,11 +158,10 @@ namespace T2.Controllers
                     var roleresult = UserManager.AddToRole(currentUser.Id, "User");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Inviare un messaggio di posta elettronica con questo collegamento
+                    // Account confirmation
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href='" + callbackUrl + "'>qui</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Account confirmation", "To confirm account, click <a href='" + callbackUrl + "'>here</a>");
 
                     return RedirectToAction("Registration", "Home");
                 }
@@ -174,7 +169,7 @@ namespace T2.Controllers
             
             }
 
-            // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
+            // An error occurred
             return View(model);
         }
 
@@ -211,19 +206,17 @@ namespace T2.Controllers
                 var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Non rivelare che l'utente non esiste o non è confermato
+                   
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
-                // Inviare un messaggio di posta elettronica con questo collegamento
+               
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Reimposta password", "Per reimpostare la password, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
+                await UserManager.SendEmailAsync(user.Id, "Reset password", "To reset password, clic <a href=\"" + callbackUrl + "\">here</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
-            // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
             return View(model);
         }
 
@@ -257,7 +250,7 @@ namespace T2.Controllers
             var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                // Non rivelare che l'utente non esiste
+              
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
@@ -284,7 +277,7 @@ namespace T2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            // Richiedere un reindirizzamento al provider di accesso esterno
+         
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
@@ -315,7 +308,7 @@ namespace T2.Controllers
                 return View();
             }
 
-            // Generare il token e inviarlo
+            
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
@@ -334,7 +327,6 @@ namespace T2.Controllers
                 return RedirectToAction("Login");
             }
 
-            // Se l'utente ha già un account, consentire l'accesso dell'utente a questo provider di accesso esterno
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
@@ -346,7 +338,7 @@ namespace T2.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
-                    // Se l'utente non ha un account, chiedere all'utente di crearne uno
+                    
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
@@ -367,7 +359,7 @@ namespace T2.Controllers
 
             if (ModelState.IsValid)
             {
-                // Recuperare le informazioni sull'utente dal provider di accesso esterno
+                
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {

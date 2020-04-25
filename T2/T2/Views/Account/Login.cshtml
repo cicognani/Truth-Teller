@@ -1,7 +1,7 @@
 ﻿@using T2.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Accedi";
+    ViewBag.Title = "Login";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,7 +11,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Specificare un account per accedere.</h4>
+                <h4>Specificy an account to login.</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -38,15 +38,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Accedi" class="btn btn-success" />
+                        <input type="submit" value="Login" class="btn btn-success" />
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Esegui nuova registrazione", "Register")
+                    @Html.ActionLink("Make new registration", "Register")
                 </p>
-                @* Abilitare questa opzione dopo aver abilitato la conferma dell'account per la funzionalità di reimpostazione della password *@
+                @* Enable this option after you have enabled account confirmation to reset password *@
                 <p>
-                    @Html.ActionLink("Password dimenticata?", "ForgotPassword")
+                    @Html.ActionLink("Password forgot?", "ForgotPassword")
                 </p>
             }
         </section>

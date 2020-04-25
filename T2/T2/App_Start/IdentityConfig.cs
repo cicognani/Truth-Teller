@@ -39,7 +39,8 @@ namespace T2
                 smtp.Port = 587; 
                 smtp.Host = "smtp.office365.com";
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("vittorio.cicognani@spekno.eu", "Vittorio*1971!");               
+                // Creare credenziali Office 365 di invio
+                smtp.Credentials = new NetworkCredential("vittorio.cicognani@spekno.eu", "");               
                 await smtp.SendMailAsync(mail);
 
         }

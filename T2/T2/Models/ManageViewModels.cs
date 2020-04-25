@@ -28,14 +28,14 @@ namespace T2.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "La lunghezza di {0} deve essere di almeno {2} caratteri.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Length of {0} should be at least {2} chars.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nuova password")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Conferma nuova password")]
-        [Compare("NewPassword", ErrorMessage = "La nuova password e la password di conferma non corrispondono.")]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "New and old password don't match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -43,18 +43,18 @@ namespace T2.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password corrente")]
+        [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "La lunghezza di {0} deve essere di almeno {2} caratteri.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Length of {0} should be at least {2} chars.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nuova password")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Conferma nuova password")]
-        [Compare("NewPassword", ErrorMessage = "La nuova password e la password di conferma non corrispondono.")]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "New password and confirm password don't match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -62,19 +62,19 @@ namespace T2.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Numero di telefono")]
+        [Display(Name = "Phone number")]
         public string Number { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel
     {
         [Required]
-        [Display(Name = "Codice")]
+        [Display(Name = "Code")]
         public string Code { get; set; }
 
         [Required]
         [Phone]
-        [Display(Name = "Numero di telefono")]
+        [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
     }
 

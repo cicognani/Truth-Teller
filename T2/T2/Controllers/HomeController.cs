@@ -36,11 +36,5 @@ namespace T2.Controllers
             return View();
         }
 
-        public ActionResult FileUpload()
-        {
-            ViewBag.Message = "File upload test.";
-
-            return View();
-        }
     }
 }

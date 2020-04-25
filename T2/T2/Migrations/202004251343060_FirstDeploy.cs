@@ -3,48 +3,78 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class FirstDeploy : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.FileUploads",
+                "dbo.BlacklistModels",
                 c => new
                     {
-                        mediaid = c.Long(nullable: false, identity: true),
-                        medianame = c.String(nullable: false),
-                        mediadata = c.Binary(nullable: false),
-                        mediatag = c.String(),
-                        mediatype = c.String(nullable: false),
-                        mediadateupload = c.DateTime(nullable: false),
-                        idUser = c.String(nullable: false),
-                        objectReferenceId = c.String(nullable: false),
-                        mediaextension = c.String(nullable: false),
-                        mediasize = c.Long(nullable: false),
-                        mediasource = c.String(nullable: false),
+                        Id = c.Long(nullable: false, identity: true),
+                        Link = c.String(nullable: false),
+                        IsEntireDomain = c.Boolean(nullable: false),
+                        DateAdded = c.DateTime(nullable: false),
+                        IdUSer = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.mediaid);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.LogCalls",
+                "dbo.CategoriesModels",
                 c => new
                     {
-                        callid = c.Long(nullable: false, identity: true),
-                        APIFullname = c.String(nullable: false),
-                        cost = c.Int(nullable: false),
-                        calldate = c.DateTime(nullable: false),
-                        idUser = c.String(nullable: false),
+                        Category = c.Long(nullable: false),
                     })
-                .PrimaryKey(t => t.callid);
+                .PrimaryKey(t => t.Category);
             
             CreateTable(
-                "dbo.PointCosts",
+                "dbo.ExpertizeModels",
                 c => new
                     {
-                        APIFullname = c.String(nullable: false, maxLength: 128),
-                        cost = c.Int(nullable: false),
+                        Id = c.Long(nullable: false, identity: true),
+                        IdUser = c.String(nullable: false),
+                        Category = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.APIFullname);
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.LinksModels",
+                c => new
+                    {
+                        Url = c.String(nullable: false, maxLength: 128),
+                        Title = c.String(),
+                        Domain = c.String(),
+                        Intro = c.String(),
+                        Category = c.String(),
+                        IsTrueCertified = c.Boolean(nullable: false),
+                        IsFalseCertified = c.Boolean(nullable: false),
+                        DateCertified = c.DateTime(nullable: false),
+                        IdUser = c.String(),
+                    })
+                .PrimaryKey(t => t.Url);
+            
+            CreateTable(
+                "dbo.OptionsModels",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        OptionName = c.String(nullable: false),
+                        OptionValue = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.RatiesModels",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Link = c.String(nullable: false),
+                        IdUser = c.String(nullable: false),
+                        DateRate = c.DateTime(nullable: false),
+                        IsTrue = c.Boolean(nullable: false),
+                        IsFake = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -76,10 +106,11 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(nullable: false, maxLength: 100),
                         LastName = c.String(nullable: false, maxLength: 100),
-                        Company = c.String(nullable: false, maxLength: 100),
                         Level = c.Byte(nullable: false),
+                        TotalSegnalation = c.Int(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
-                        PointsLeft = c.Int(nullable: false),
+                        NCorrectAnswers = c.Int(nullable: false),
+                        NFaultAnswers = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -120,6 +151,18 @@
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.WhitelistModels",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Link = c.String(nullable: false),
+                        IsEntireDomain = c.Boolean(nullable: false),
+                        DateAdded = c.DateTime(nullable: false),
+                        IdUSer = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
@@ -134,14 +177,18 @@
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.WhitelistModels");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.PointCosts");
-            DropTable("dbo.LogCalls");
-            DropTable("dbo.FileUploads");
+            DropTable("dbo.RatiesModels");
+            DropTable("dbo.OptionsModels");
+            DropTable("dbo.LinksModels");
+            DropTable("dbo.ExpertizeModels");
+            DropTable("dbo.CategoriesModels");
+            DropTable("dbo.BlacklistModels");
         }
     }
 }

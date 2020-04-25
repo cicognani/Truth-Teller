@@ -55,12 +55,12 @@ namespace T2.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "La password è stata cambiata."
-                : message == ManageMessageId.SetPasswordSuccess ? "La password è stata impostata."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Il provider di autenticazione a due fattori è stato impostato."
-                : message == ManageMessageId.Error ? "Si è verificato un errore."
-                : message == ManageMessageId.AddPhoneSuccess ? "Il numero di telefono è stato aggiunto."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Il numero di telefono è stato rimosso."
+                message == ManageMessageId.ChangePasswordSuccess ? "Password has been changed."
+                : message == ManageMessageId.SetPasswordSuccess ? "Password has been set."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Two factors authentication provider has been set."
+                : message == ManageMessageId.Error ? "An error occurred."
+                : message == ManageMessageId.AddPhoneSuccess ? "Phone number added."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Phone number removed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -123,7 +123,7 @@ namespace T2.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Il codice di sicurezza è: " + code
+                    Body = "Security code: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -165,7 +165,7 @@ namespace T2.Controllers
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
-            // Inviare un SMS tramite il provider SMS per verificare il numero di telefono
+  
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
@@ -189,8 +189,8 @@ namespace T2.Controllers
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
-            // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
-            ModelState.AddModelError("", "Verifica del numero di telefono non riuscita");
+            
+            ModelState.AddModelError("", "Phone number verification not successfully");
             return View(model);
         }
 
@@ -272,7 +272,6 @@ namespace T2.Controllers
                 AddErrors(result);
             }
 
-            // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
             return View(model);
         }
 
@@ -281,8 +280,8 @@ namespace T2.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "L'account di accesso esterno è stato rimosso."
-                : message == ManageMessageId.Error ? "Si è verificato un errore."
+                message == ManageMessageId.RemoveLoginSuccess ? "External account has been removed."
+                : message == ManageMessageId.Error ? "An error occurred."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
@@ -305,7 +304,7 @@ namespace T2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
-            // Richiedere un reindirizzamento al provider di accesso esterno per collegare un account di accesso per l'utente corrente
+            
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 

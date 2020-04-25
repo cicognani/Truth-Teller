@@ -26,9 +26,7 @@ namespace T2
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
-                {
-                    // Consente all'applicazione di convalidare l'indicatore di sicurezza quando l'utente esegue l'accesso.
-                    // Questa funzionalità di sicurezza è utile quando si cambia una password o si aggiungono i dati di un account di accesso esterno all'account personale.  
+                { 
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                     validateInterval: TimeSpan.FromMinutes(30),
                     regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
@@ -44,7 +42,6 @@ namespace T2
         }
         public void ConfigureOAuthTokenGeneration(IAppBuilder app)
         {
-            // Configurare il contesto di database, la gestione utenti e la gestione accessi in modo da usare un'unica istanza per richiesta
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
@@ -68,7 +65,7 @@ namespace T2
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
-            // https://t2.westeurope.cloudapp.azure.com/
+            // https://t2spekno.westeurope.cloudapp.azure.com/
             var issuer = "https://localhost:443";
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
