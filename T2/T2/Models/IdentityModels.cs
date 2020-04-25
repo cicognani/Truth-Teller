@@ -106,6 +106,11 @@ namespace T2.Models
             set;
         }
 
+        public DbSet<FeedsModel> Feeds
+        {
+            get;
+            set;
+        }
 
 
         public static ApplicationDbContext Create()

@@ -61,6 +61,13 @@ namespace T2.Models
             set;
         }
 
+        /*Rating*/
+        public float UrlRating
+        {
+            get;
+            set;
+        }
+
 
         /* Date and hour of certification */
         public DateTime DateCertified
@@ -70,7 +77,7 @@ namespace T2.Models
         }
 
         /* User that certified */
-        public string IdUser
+        public string IdUserCertified
         {
             get;
             set;
