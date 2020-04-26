@@ -11,8 +11,10 @@ namespace T2.Models
     {
         /* ID */
         [Key]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(450)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long Category
+        public string Category
         {
             get;
             set;

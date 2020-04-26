@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Stringa di connessione utilizzata in web.config per l'accesso al database da parte dell'applicazione." defaultValue="Data Source=t2spekno.database.windows.net;Initial Catalog=T2;Integrated Security=False;uid=spekno;Password=t2*2o2o!!$;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Vittorio\\source\\repos\\cicognani\\TruthTellerPrivate\\T2\\T2\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>
