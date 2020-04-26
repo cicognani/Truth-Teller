@@ -24,58 +24,58 @@ namespace T2.Controllers
         //}
 
         // GET: api/Links/5
-        [ResponseType(typeof(LinksModel))]
-        public IHttpActionResult GetLinksModel(string id)
-        {         
-            var httpUrl = HttpContext.Current.Request.Form["Url"];     
+        //[ResponseType(typeof(LinksModel))]
+        //public IHttpActionResult GetLinksModel(string id)
+        //{         
+        //    var httpUrl = HttpContext.Current.Request.Form["Url"];     
  
-            LinksModel linksModel = db.Links.Find(httpUrl);
+        //    LinksModel linksModel = db.Links.Find(httpUrl);
 
-            // Not found
-            if (linksModel == null)
-            {
-                return Json(new { URL = httpUrl, state = "not_found", rating = "0" });
-            }
+        //    // Not found
+        //    if (linksModel == null)
+        //    {
+        //        return Json(new { URL = httpUrl, state = "not_found", rating = "0" });
+        //    }
         
-            // Certified FAKE
-            if (linksModel.IsFalseCertified)
-            {
-            return Json(new { URL = httpUrl, state = "certified_fake", rating = "-100" });
-            }
+        //    // Certified FAKE
+        //    if (linksModel.IsFalseCertified)
+        //    {
+        //    return Json(new { URL = httpUrl, state = "certified_fake", rating = "-100" });
+        //    }
 
-            // Certified TRUE
-            if (linksModel.IsTrueCertified)
-            {
-             return Json(new { URL = httpUrl, state = "certified_ok", rating = "100" });
-            }
+        //    // Certified TRUE
+        //    if (linksModel.IsTrueCertified)
+        //    {
+        //     return Json(new { URL = httpUrl, state = "certified_ok", rating = "100" });
+        //    }
 
-            // Search in Raties
-            var ratiesModel = db.Raties
-                   .Where(b => b.Link == httpUrl)
-                   .FirstOrDefault();
+        //    // Search in Raties
+        //    var ratiesModel = db.Raties
+        //           .Where(b => b.Link == httpUrl)
+        //           .FirstOrDefault();
 
-            if (ratiesModel==null)
+        //    if (ratiesModel==null)
 
-            {
-                return Json(new { URL = httpUrl, state = "dont_know", rating = "0" });
-            }
-            else
-            {
-                var ratingCalculated = linksModel.UrlRating;
+        //    {
+        //        return Json(new { URL = httpUrl, state = "dont_know", rating = "0" });
+        //    }
+        //    else
+        //    {
+        //        var ratingCalculated = linksModel.UrlRating;
 
-                if (ratingCalculated <= 0)
-                {
-                    return Json(new { URL = httpUrl, state = "fake", rating = ratingCalculated.ToString() });
-                }
-                else
-                {
-                    return Json(new { URL = httpUrl, state = "ok", rating = ratingCalculated.ToString() });
-                }
+        //        if (ratingCalculated <= 0)
+        //        {
+        //            return Json(new { URL = httpUrl, state = "fake", rating = ratingCalculated.ToString() });
+        //        }
+        //        else
+        //        {
+        //            return Json(new { URL = httpUrl, state = "ok", rating = ratingCalculated.ToString() });
+        //        }
 
-            }
+        //    }
 
            
-        }
+        //}
 
         //// PUT: api/Links/5
         //[ResponseType(typeof(void))]
@@ -112,35 +112,58 @@ namespace T2.Controllers
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
 
-        //// POST: api/Links
-        //[ResponseType(typeof(LinksModel))]
-        //public IHttpActionResult PostLinksModel(LinksModel linksModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // POST: api/Links
+        [ResponseType(typeof(LinksModel))]
+        public IHttpActionResult PostLinksModel()
+        {
+            var httpUrl = HttpContext.Current.Request.Form["Url"];
 
-        //    db.Links.Add(linksModel);
+            LinksModel linksModel = db.Links.Find(httpUrl);
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (LinksModelExists(linksModel.Url))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            // Not found
+            if (linksModel == null)
+            {
+                return Json(new { URL = httpUrl, state = "not_found", rating = "0" });
+            }
 
-        //    return CreatedAtRoute("DefaultApi", new { id = linksModel.Url }, linksModel);
-        //}
+            // Certified FAKE
+            if (linksModel.IsFalseCertified)
+            {
+                return Json(new { URL = httpUrl, state = "certified_fake", rating = "-100" });
+            }
+
+            // Certified TRUE
+            if (linksModel.IsTrueCertified)
+            {
+                return Json(new { URL = httpUrl, state = "certified_ok", rating = "100" });
+            }
+
+            // Search in Raties
+            var ratiesModel = db.Raties
+                   .Where(b => b.Link == httpUrl)
+                   .FirstOrDefault();
+
+            if (ratiesModel == null)
+
+            {
+                return Json(new { URL = httpUrl, state = "dont_know", rating = "0" });
+            }
+            else
+            {
+                var ratingCalculated = linksModel.UrlRating;
+
+                if (ratingCalculated <= 0)
+                {
+                    return Json(new { URL = httpUrl, state = "fake", rating = ratingCalculated.ToString() });
+                }
+                else
+                {
+                    return Json(new { URL = httpUrl, state = "ok", rating = ratingCalculated.ToString() });
+                }
+
+            }
+
+        }
 
         //// DELETE: api/Links/5
         //[ResponseType(typeof(LinksModel))]
