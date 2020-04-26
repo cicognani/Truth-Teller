@@ -146,3 +146,4 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.c
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.CopyComplete
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.pdb
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csprojAssemblyReference.cache

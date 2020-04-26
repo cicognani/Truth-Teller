@@ -145,4 +145,3 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Api
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Core.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Release\T2.Migrations.FirstDeploy.resources
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Release\T2.csproj.GenerateResource.cache
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Release\T2.csprojAssemblyReference.cache
