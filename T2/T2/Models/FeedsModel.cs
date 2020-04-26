@@ -12,6 +12,8 @@ namespace T2.Models
 
         /*FEED URL */
         [Key]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(450)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string FeedURL
         {

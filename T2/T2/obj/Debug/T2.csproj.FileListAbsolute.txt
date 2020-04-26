@@ -1,3 +1,4 @@
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.dll.config
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\T2.dll
@@ -15,7 +16,6 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Mic
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.Managed.Core.targets
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\Microsoft.VisualBasic.Core.targets
@@ -54,6 +54,11 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\roslyn\VBC
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Antlr3.Runtime.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\EntityFramework.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\EntityFramework.SqlServer.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Auth.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Auth.PlatformServices.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Core.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.PlatformServices.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -90,6 +95,12 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\WebActivat
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\WebGrease.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\EntityFramework.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\EntityFramework.SqlServer.xml
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.pdb
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.xml
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Auth.pdb
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Auth.xml
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Core.pdb
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Google.Apis.Core.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\Microsoft.AspNet.Identity.Owin.xml
@@ -129,9 +140,9 @@ C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.resources.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\bin\it\System.Web.WebPages.Razor.resources.dll
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.Migrations.FirstDeploy.resources
+C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.GenerateResource.cache
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.CoreCompileInputs.cache
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.CopyComplete
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.dll
 C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.pdb
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.Migrations.DeployOne.resources
-C:\Users\Vittorio\source\repos\cicognani\TruthTellerPrivate\T2\T2\obj\Debug\T2.csproj.GenerateResource.cache

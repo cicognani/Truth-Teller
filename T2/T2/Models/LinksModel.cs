@@ -11,6 +11,8 @@ namespace T2.Models
     {
         /* URL */
         [Key]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(450)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Url
         {
