@@ -15,12 +15,14 @@
   "background": {
     "scripts": ["jquery-3.5.0.min.js","background.js"]
   },
-  "permissions": ["tabs","identity"],
-  "web_accessible_resources": ["images/green.png","images/yellow.png","images/red.png","images/tup.png","images/tdown.png"],
+  "permissions": ["tabs","identity", "https://t2spekno-62a66c37.northeurope.cloudapp.azure.com/"],
+  "web_accessible_resources": ["images/green.png", "images/yellow.png",
+    "images/red.png", "images/tup.png", "images/tdown.png", "images/alert.png",
+    "images/grey.png" ],
 
   "oauth2": {
-    "client_id": "696550478072-hbl4b71914qukmplpntvi9uvvh060fbs.apps.googleusercontent.com",
-    "scopes": [
+    "client_id": "696550478072-uvsb5sqof1lb3brunc0i1s6f458fc6gq.apps.googleusercontent.com",
+    "scopes": ["profile","email","openid"
     ]
   }
 }
