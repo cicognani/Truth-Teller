@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var manifest = chrome.runtime.getManifest();
+  const bg = chrome.extension.getBackgroundPage();
+  var prev_data;
+  $('#special_radios input').change(function(){
+    prev_data=$(this).attr('id');
+    chrome.runtime.sendMessage({context:"user", state: prev_data}, function(response) {
+    });
+  });
+
+
+
+  /*var manifest = chrome.runtime.getManifest();
 
   var clientId = encodeURIComponent(manifest.oauth2.client_id);
   var scopes = encodeURIComponent(manifest.oauth2.scopes.join(' '));
@@ -11,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
             '&access_type=offline' +
             '&redirect_uri=' + redirectUri +
             '&scope=' + scopes;
-  console.log(url)
+  console.log(url);
 
-  const bg = chrome.extension.getBackgroundPage()
+
 
   if (bg.token ){
     $( "#auth" ).click(function() {console.log(bg.token);});
@@ -59,5 +69,5 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         );
     });
-  };
+  };*/
 }, false)
