@@ -1,11 +1,3 @@
-//alert('Grrr.')
-// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-//   const re = new RegExp('bear', 'gi')
-//   const matches = document.documentElement.innerHTML.match(re)
-//   sendResponse({count: matches.length})
-// })
-
-
 $(document).ready(function() {$('head').append('<style> .tt-link-box { '+
       '  background: #ffffff;'+
       '  width: 100px;'+
@@ -24,14 +16,18 @@ $( ".r" ).each(function( index ) {
             function(data) {
               console.log(data);
             });
+  var imgstr = "";
+  var imgup =  chrome.runtime.getURL("images/tup.png");
+  var imgdown =  chrome.runtime.getURL("images/tdown.png");
   var rr = Math.floor(Math.random() * 3);
   if (rr == 0 ) {
-    $(this).append('<div style="display:contents;"><a class="tt-toggle"><img  src="'+chrome.runtime.getURL("images/yellow.png")+'"></a><div class="tt-link-box"><ul><li><a class="tt-up" href="#">up</a></li><li><a class="tt-down" href="#">down</a></li></div></div>');
+    imgstr = chrome.runtime.getURL("images/yellow.png");
   }
   else if (rr==1) {
-    $(this).append('<div style="display:contents;"><a class="tt-toggle"><img  src="'+chrome.runtime.getURL("images/green.png")+'"></a><div class="tt-link-box"><ul><li><a class="tt-up" href="#">up</a></li><li><a class="tt-down" href="#">down</a></li></div></div>');
+    imgstr = chrome.runtime.getURL("images/green.png");
   }
   else {
-    $(this).append('<div style="display:contents;"><a class="tt-toggle"><img  src="'+chrome.runtime.getURL("images/red.png")+'"></a><div class="tt-link-box"><ul><li><a class="tt-up" href="#">up</a></li><li><a class="tt-down" href="#">down</a></li></div></div>')
+    imgstr = chrome.runtime.getURL("images/red.png");
   }
+  $(this).append('<div style="display:contents;"><a class="tt-toggle"><img  src="'+imgstr+'"></a><div class="tt-link-box"><ul style="list-style-type: none;"><li><a class="tt-up" href="#"><img style="width:25px" src="'+imgup+'"></a></li><li><a class="tt-down" href="#"><img style="width:25px" src="'+imgdown+'"></a></li></div></div>')
 });

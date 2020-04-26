@@ -16,12 +16,11 @@
     "scripts": ["jquery-3.5.0.min.js","background.js"]
   },
   "permissions": ["tabs","identity"],
-  "web_accessible_resources": ["images/green.png","images/yellow.png","images/red.png"],
+  "web_accessible_resources": ["images/green.png","images/yellow.png","images/red.png","images/tup.png","images/tdown.png"],
 
   "oauth2": {
     "client_id": "696550478072-hbl4b71914qukmplpntvi9uvvh060fbs.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/drive"
     ]
   }
 }
