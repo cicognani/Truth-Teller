@@ -1,0 +1,27 @@
+{
+  "name": "TruthTeller",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "js": ["jquery-3.5.0.min.js","content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "TruthTeller"
+  },
+  "background": {
+    "scripts": ["jquery-3.5.0.min.js","background.js"]
+  },
+  "permissions": ["tabs","identity"],
+  "web_accessible_resources": ["images/green.png","images/yellow.png","images/red.png"],
+
+  "oauth2": {
+    "client_id": "696550478072-hbl4b71914qukmplpntvi9uvvh060fbs.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive"
+    ]
+  }
+}
