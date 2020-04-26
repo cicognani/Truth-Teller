@@ -28,15 +28,16 @@ $( ".r" ).each(function( index ) {
       if (state == 'not_found' ) {
         imgstr = chrome.runtime.getURL("images/grey.png");
       }
-      else if (state ==1) {
+      else if (state =='certified_ok' || state =='ok') {
         imgstr = chrome.runtime.getURL("images/green.png");
       }
       else {
         imgstr = chrome.runtime.getURL("images/red.png");
       }
-      $(result).append('<div style="display:contents;"><a class="tt-toggle"><img  src="'+imgstr+'"></a>'+updown)
+      $(result).append('<div style="display:contents;"><a class="tt-toggle"><img style="width:20px" src="'+imgstr+'"></a>'+updown)
 
   });
+$("tt-down").click(function(){console.log($(this).parent().parent().children(a).attr("href") )});
 /*  $.getJSON("https://t2spekno-62a66c37.northeurope.cloudapp.azure.com/api/Links/1",
             {url:$(this).children("a").attr("href")},
             function(data) {

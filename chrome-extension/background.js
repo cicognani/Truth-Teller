@@ -5,18 +5,35 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     window.email = request.email;
   }
   else if (request.context == "url") {
-    $.getJSON("https://t2spekno-62a66c37.northeurope.cloudapp.azure.com/api/Links/1",
+    var form = new FormData();
+    form.append( 'url', request.url );
+
+    var settings = {
+      "url": "https://t2spekno-62a66c37.northeurope.cloudapp.azure.com/api/Links/1",
+      "method": "POST",
+      "timeout": 0,
+      "processData": false,
+      "mimeType": "multipart/form-data",
+      "contentType": false,
+      "data": form,
+      "dataType": "json"
+    };
+    $.ajax(settings).done(function (response) {
+      console.log(response["state"]);
+      sendResponse(response["state"]);
+    });
+    /*$.getJSON("https://t2spekno-62a66c37.northeurope.cloudapp.azure.com/api/Links/1",
                 {url:request.url},
                 function(data) {
                   console.log(data);
                   sendResponse(data["state"]);
-                });
+                });*/
   }
   else if (request.context == "user") {
     window.user = request.state;
   }
   else if (request.context == "userstate") {
-    sendResponse(window.user); 
+    sendResponse(window.user);
   }
   return true;
 })

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#special_radios input').change(function(){
     prev_data=$(this).attr('id');
     chrome.runtime.sendMessage({context:"user", state: prev_data}, function(response) {
+      return true;
     });
   });
 
